@@ -2,11 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\groups;
+use App\Groups;
 use Faker\Generator as Faker;
 
-$factory->define(groups::class, function (Faker $faker) {
+
+$factory->define(Groups::class, function (Faker $faker) {
     return [
-        //
+        'id' => $faker->uuid,
+        'name' => $faker->unique()->name
     ];
 });
