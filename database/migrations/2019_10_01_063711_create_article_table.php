@@ -22,6 +22,7 @@ class CreateArticleTable extends Migration
             $table->uuid('user_id');
             $table->timestamps();
             $table->primary('id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
