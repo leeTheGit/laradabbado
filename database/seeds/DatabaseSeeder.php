@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Lib\l;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,12 +19,26 @@ class DatabaseSeeder extends Seeder
         DB::table('groups')->truncate();
         DB::table('user_groups')->truncate();
         DB::table('media')->truncate();
-        DB::table('article')->truncate();
+        DB::table('articles')->truncate();
         DB::table('article_collection')->truncate();
         DB::table('collection')->truncate();
 
 
-        $this->call(Users::class);
-        $this->call(MediaTableSeeder::class);
+        $data = $this->call(Users::class);
+        $this->call(MediaTableSeeder::class, $data['users']);
+        $this->call(ArticleTableSeeder::class, $data['users']);
+
     }
+
+    public function call($class, $extra = null) {
+        $res = $this->resolve($class)->run($extra);
+
+        if (isset($this->command)) {
+            $this->command->getOutput()->writeln("<info>Seeded:</info> $class");
+        }
+
+        return $res;
+    }
+
+
 }

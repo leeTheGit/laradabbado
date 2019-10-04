@@ -14,12 +14,13 @@ class Users extends Seeder
     {
         l::og('seeding the seeds');
         $groupIds = [];
-        factory(App\Groups::class, 5)->create()->each(function($group) use (&$groupIds) {
+        factory(App\Groups::class, 5)->create()->each( function($group) use (&$groupIds) {
             $groupIds[] = $group->id;
         });
 
-        
-        factory(App\User::class, 50)->create()->each( function($user)  use ($groupIds) {
+        $userIds = [];
+        factory(App\User::class, 50)->create()->each( function($user)  use ($groupIds, &$userIds) {
+            $userIds[] = $user->id;
             try {
                 factory(App\UserGroups::class, 2)->create(['user_id' => $user->id, 'group_id' => Arr::random($groupIds) ]);
             } catch (\Exception $e) {
@@ -27,5 +28,9 @@ class Users extends Seeder
             }
         });
 
+        return [
+            'users' => $userIds,
+            'groups' => $groupIds,
+        ];
     }
 }

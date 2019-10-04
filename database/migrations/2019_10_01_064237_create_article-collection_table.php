@@ -19,7 +19,7 @@ class CreateArticleCollectionTable extends Migration
             $table->uuid('collection_id');
             $table->timestamps();
             $table->primary('id');
-            $table->foreign('article_id')->references('id')->on('article')->onDelete('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->foreign('collection_id')->references('id')->on('collection')->onDelete('cascade');
 
         });

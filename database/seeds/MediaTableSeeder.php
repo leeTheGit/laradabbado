@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Lib\l;
 
 class MediaTableSeeder extends Seeder
@@ -10,9 +11,12 @@ class MediaTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run($data)
     {
-        l::og('seeding the media');
-        factory(App\Media::class, 5)->create();
+        factory(App\Media::class, 5)->create(['user_id' => Arr::random($data)]);
+        factory(App\Media::class, 5)->create(['user_id' => Arr::random($data)]);
+        factory(App\Media::class, 5)->create(['user_id' => Arr::random($data)]);
+        factory(App\Media::class, 5)->create(['user_id' => Arr::random($data)]);
+        factory(App\Media::class, 5)->create(['user_id' => Arr::random($data)]);
     }
 }
